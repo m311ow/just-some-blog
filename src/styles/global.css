@@ -18,9 +18,10 @@ body {
 }
 
 body {
-  @apply font-sans antialiased;
+  @apply font-serif antialiased;
+  @apply text-xl;
   @apply flex flex-col;
-  @apply bg-neutral-100 dark:bg-neutral-900;
+  @apply bg-neutral-100 dark:bg-neutral-950;
   @apply text-black/75 dark:text-white/75;
 }
 
@@ -38,15 +39,25 @@ footer {
   @apply py-6 text-sm;
 }
 
+h1 {
+  @apply font-display antialiased;
+  @apply text-4xl;
+}
+
 article {
   @apply prose prose-neutral max-w-full dark:prose-invert prose-img:mx-auto prose-img:my-auto;
   @apply prose-headings:font-semibold;
   @apply prose-headings:text-black prose-headings:dark:text-white;
+  @apply text-xl;
+}
+
+article .astro-code {
+  @apply text-base;
 }
 
 @layer utilities {
   article a {
-    @apply font-sans text-current underline underline-offset-[3px];
+    @apply font-serif text-current underline underline-offset-[3px];
     @apply decoration-black/30 dark:decoration-white/30;
     @apply transition-colors duration-300 ease-in-out;
   }

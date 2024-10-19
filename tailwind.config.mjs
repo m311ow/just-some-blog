@@ -6,8 +6,10 @@ export default {
   theme: {
     extend: {
       fontFamily: {
+        serif: ["Crimson Pro Variable", ...defaultTheme.fontFamily.serif],
         sans: ["Geist Sans", ...defaultTheme.fontFamily.sans],
         mono: ["Geist Mono", ...defaultTheme.fontFamily.mono],
+        display: ["Lacquer", ...defaultTheme.fontFamily.serif],
       },
     },
   },
