@@ -1,9 +1,9 @@
 ---
-import Head from "@components/Head.astro";
-import Header from "@components/Header.astro";
-import Footer from "@components/Footer.astro";
-import PageFind from "@components/PageFind.astro";
-import { SITE } from "@consts";
+import Head from '@components/Head.astro';
+import Header from '@components/Header.astro';
+import Footer from '@components/Footer.astro';
+import PageFind from '@components/PageFind.astro';
+import { SITE } from '@consts';
 
 type Props = {
   title: string;
@@ -14,7 +14,7 @@ const { title, description } = Astro.props;
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang='en'>
   <head>
     <Head title={`${title} | ${SITE.TITLE}`} description={description} />
   </head>
@@ -25,5 +25,27 @@ const { title, description } = Astro.props;
     </main>
     <Footer />
     <PageFind />
+    <script>
+      import { annotate, annotationGroup } from 'rough-notation';
+      // needs to wrapped in the event listener to run after ViewTransition happens
+      document.addEventListener('astro:page-load', () => {
+        const notions = document.querySelectorAll('span[data-notion-identity]');
+        const annotations = new Array(notions.length).fill(0).map((_, index) => {
+          const node = notions[index] as HTMLSpanElement;
+          const type = node.dataset.notionType;
+          const color = node.dataset.notionColor;
+          const strokeWidth = node.dataset.notionStrokewidth;
+          return annotate(node, {
+            type: (type as 'underline') ?? 'underline',
+            color: color ?? 'red',
+            animate: false,
+            multiline: type === 'bracket' ? false : true,
+            brackets: ['left', 'right'],
+            strokeWidth: Number(strokeWidth) ?? 1.5
+          });
+        });
+        annotationGroup(annotations).show();
+      });
+    </script>
   </body>
 </html>
