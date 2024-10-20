@@ -97,7 +97,7 @@ html.scrolled #back-to-top {
 
 /* shiki config */
 pre {
-  @apply border border-black/15 py-5 dark:border-white/20;
+  @apply rounded-sm border border-black/15 py-5 dark:border-white/20;
 }
 
 :root {
