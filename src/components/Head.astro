@@ -196,6 +196,8 @@ const { title, description, image = '/blog-placeholder-1.jpg' } = Astro.props;
     document.head.removeChild(css);
 
     setGiscusTheme();
+    // to trigger script drawing annotations, so it can change color
+    document.dispatchEvent(new Event('astro:page-load'));
   }
 
   function preloadTheme() {
@@ -260,4 +262,38 @@ const { title, description, image = '/blog-placeholder-1.jpg' } = Astro.props;
   document.addEventListener('DOMContentLoaded', () => init());
   document.addEventListener('astro:after-swap', () => init());
   preloadTheme();
+</script>
+
+<!-- import script did not work in inline script -->
+<script>
+  import { annotate, annotationGroup } from 'rough-notation';
+
+  let previousAnnotations: any = [];
+  // needs to wrapped in the event listener to run after ViewTransition happens
+  document.addEventListener('astro:page-load', () => {
+    // Clear previous annotations (to prevent drawing on top of each other)
+    previousAnnotations.forEach((annotation: any) => annotation.remove());
+    previousAnnotations = [];
+
+    const theme = localStorage.getItem('theme');
+    const notions = document.querySelectorAll('span[data-notion-identity]');
+
+    const annotations = new Array(notions.length).fill(0).map((_, index) => {
+      const node = notions[index] as HTMLSpanElement;
+      const type = node.dataset.notionType;
+      const color = node.dataset.notionColor;
+      const strokeWidth = node.dataset.notionStrokewidth;
+      return annotate(node, {
+        type: (type as 'underline') ?? 'underline',
+        color: theme === 'dark' ? 'white' : 'black',
+        animate: false,
+        multiline: type === 'bracket' ? false : true,
+        brackets: ['left', 'right'],
+        strokeWidth: Number(strokeWidth) ?? 1.5
+      });
+    });
+
+    previousAnnotations = annotations;
+    annotationGroup(annotations).show();
+  });
 </script>

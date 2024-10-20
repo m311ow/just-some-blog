@@ -48,13 +48,10 @@ const currentPath = pathname.slice(1);
     </div>
   </Container>
 </header> -->
-<header
-  transition:persist
-  class='font-display mx-auto max-w-screen-sm gap-5 p-5 px-3 text-current lg:flex'
->
+<header class='font-display mx-auto max-w-screen-sm gap-5 p-5 px-3 text-current lg:flex'>
   <Astronav>
     <div class='flex w-full justify-between'>
-      <Link href='/' underline={false}>
+      <Link href='/' active={currentPath === ''} underline={false}>
         <div class='font-display font-semibold'>
           ✰&nbsp;{SITE.TITLE}&nbsp;✰
         </div>

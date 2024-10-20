@@ -41,7 +41,7 @@ const projects: CollectionEntry<'projects'>[] = (await getCollection('projects')
               </p>
             </span>
             <span class='animate'>
-              <Notation type='bracket' color='white'>
+              <Notation type='bracket'>
                 <p>
                   <i>
                     Micro still comes with everything great about Nano — full type safety, a
@@ -50,75 +50,83 @@ const projects: CollectionEntry<'projects'>[] = (await getCollection('projects')
                   >
                 </p>
               </Notation>
-
               <p>
                 Visit
-                <Link href='https://github.com/trevortylerlee/astro-micro'>
-                  Astro Micro on GitHub
-                </Link>
+                <Notation type='box'>
+                  <Link href='https://github.com/trevortylerlee/astro-micro'>
+                    Astro Micro on GitHub
+                  </Link>
+                </Notation>
+
                 to fork the repository to get started.
               </p>
             </span>
-          </article>
-        </section>
 
-        <section class='animate space-y-6'>
-          <div class='flex flex-wrap items-center justify-between gap-y-2'>
-            <h2 class='font-display font-semibold text-black dark:text-white'>Latest posts</h2>
-            <Link href='/blog'> <span class='font-display'>See all</span> </Link>
-          </div>
-          <ul class='not-prose flex flex-col gap-4'>
-            {
-              blog.map((post) => (
-                <li>
-                  <ArrowCard entry={post} />
-                </li>
-              ))
-            }
-          </ul>
-        </section>
+            <section class='animate space-y-6'>
+              <div class='flex flex-wrap items-center justify-between gap-y-2'>
+                <h2 class='font-display font-semibold text-black dark:text-white'>Latest posts</h2>
+                <Link href='/blog'> <span class='font-display'>See all</span> </Link>
+              </div>
+              <ul class='not-prose flex flex-col gap-4'>
+                {
+                  blog.map((post) => (
+                    <li>
+                      <ArrowCard entry={post} />
+                    </li>
+                  ))
+                }
+              </ul>
+            </section>
 
-        <section class='animate space-y-6'>
-          <div class='flex flex-wrap items-center justify-between gap-y-2'>
-            <h2 class='font-display font-semibold text-black dark:text-white'>Recent projects</h2>
-            <Link href='/projects'><span class='font-display'>See all</span> </Link>
-          </div>
-          <ul class='not-prose flex flex-col gap-4'>
-            {
-              projects.map((project) => (
-                <li>
-                  <ArrowCard entry={project} />
-                </li>
-              ))
-            }
-          </ul>
-        </section>
+            <section class='animate space-y-6'>
+              <div class='flex flex-wrap items-center justify-between gap-y-2'>
+                <h2 class='font-display font-semibold text-black dark:text-white'>
+                  Recent projects
+                </h2>
+                <Link href='/projects'><span class='font-display'>See all</span> </Link>
+              </div>
+              <ul class='not-prose flex flex-col gap-4'>
+                {
+                  projects.map((project) => (
+                    <li>
+                      <ArrowCard entry={project} />
+                    </li>
+                  ))
+                }
+              </ul>
+            </section>
 
-        <section class='animate space-y-4'>
-          <h2 class='font-display font-semibold text-black dark:text-white'>Let's Connect</h2>
-          <article>
-            <p>
-              If you want to get in touch with me about something or just to say hi, reach out on
-              social media or send me an email.
-            </p>
-          </article>
-          <ul class='not-prose flex flex-wrap gap-2'>
-            {
-              SOCIALS.map((SOCIAL) => (
-                <li class='flex gap-x-2 text-nowrap'>
-                  <Link href={SOCIAL.HREF} external aria-label={`${SITE.TITLE} on ${SOCIAL.NAME}`}>
-                    {SOCIAL.NAME}
+            <section class='animate space-y-4'>
+              <h2 class='font-display font-semibold text-black dark:text-white'>Let's Connect</h2>
+              <article>
+                <p>
+                  If you want to get in touch with me about something or just to say hi, reach out
+                  on social media or send me an email.
+                </p>
+              </article>
+              <ul class='not-prose flex flex-wrap gap-2'>
+                {
+                  SOCIALS.map((SOCIAL) => (
+                    <li class='flex gap-x-2 text-nowrap'>
+                      <Link
+                        href={SOCIAL.HREF}
+                        external
+                        aria-label={`${SITE.TITLE} on ${SOCIAL.NAME}`}
+                      >
+                        {SOCIAL.NAME}
+                      </Link>
+                      {'/'}
+                    </li>
+                  ))
+                }
+                <li class='line-clamp-1'>
+                  <Link href={`mailto:${SITE.EMAIL}`} aria-label={`Email ${SITE.TITLE}`}>
+                    {SITE.EMAIL}
                   </Link>
-                  {'/'}
                 </li>
-              ))
-            }
-            <li class='line-clamp-1'>
-              <Link href={`mailto:${SITE.EMAIL}`} aria-label={`Email ${SITE.TITLE}`}>
-                {SITE.EMAIL}
-              </Link>
-            </li>
-          </ul>
+              </ul>
+            </section>
+          </article>
         </section>
       </div>
     </aside>
