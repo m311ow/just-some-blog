@@ -88,6 +88,8 @@ const { title, description, image = '/blog-placeholder-1.jpg' } = Astro.props;
       localStorage.setItem('theme', 'light');
       toggleTheme(false);
       updateThemeButtons();
+      // to re-trigger script with 'rough anotations'
+      document.dispatchEvent(new Event('astro:page-load'));
     });
 
     const darkThemeButton = document.getElementById('dark-theme-button');
@@ -95,6 +97,8 @@ const { title, description, image = '/blog-placeholder-1.jpg' } = Astro.props;
       localStorage.setItem('theme', 'dark');
       toggleTheme(true);
       updateThemeButtons();
+      // to re-trigger script with 'rough anotations'
+      document.dispatchEvent(new Event('astro:page-load'));
     });
 
     const systemThemeButton = document.getElementById('system-theme-button');
@@ -102,6 +106,8 @@ const { title, description, image = '/blog-placeholder-1.jpg' } = Astro.props;
       localStorage.setItem('theme', 'system');
       toggleTheme(window.matchMedia('(prefers-color-scheme: dark)').matches);
       updateThemeButtons();
+      // to re-trigger script with 'rough anotations'
+      document.dispatchEvent(new Event('astro:page-load'));
     });
 
     window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (event) => {
@@ -196,8 +202,6 @@ const { title, description, image = '/blog-placeholder-1.jpg' } = Astro.props;
     document.head.removeChild(css);
 
     setGiscusTheme();
-    // to trigger script drawing annotations, so it can change color
-    document.dispatchEvent(new Event('astro:page-load'));
   }
 
   function preloadTheme() {
@@ -269,9 +273,7 @@ const { title, description, image = '/blog-placeholder-1.jpg' } = Astro.props;
   import { annotate, annotationGroup } from 'rough-notation';
 
   let previousAnnotations: any = [];
-  // needs to wrapped in the event listener to run after ViewTransition happens
   document.addEventListener('astro:page-load', () => {
-    // Clear previous annotations (to prevent drawing on top of each other)
     previousAnnotations.forEach((annotation: any) => annotation.remove());
     previousAnnotations = [];
 
